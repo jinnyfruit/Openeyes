@@ -83,7 +83,7 @@ print(english_summary)
 print()
 
 # Sample Korean text
-korean_text = "한국의 수도는 서울입니다. 대한민국의 언어는 한국어입니다. 이 문장은 한국어 예시입니다."
+korean_text = "대한한국의 수도는 서울입니다. 대한민국의 언어는 한국어입니다. 이 문장은 한국어 예시입니다. "
 korean_summary = summarize_text(korean_text)
 print("Korean text:")
 print(korean_text)
