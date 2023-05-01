@@ -3,26 +3,34 @@ import re
 from konlpy.tag import Komoran
 from lexrankr import LexRank
 
+def Summerization() :
+    # 1. init using Okt tokenizer
+    mytokenizer: OktTokenizer = OktTokenizer()
+    lexrank: LexRank = LexRank(mytokenizer)
+    text = "코로나 팬데믹 시대, 디지털 기술은 교육의 생명선이 됐다. OECD 설문조사 결과, 지난 1년 간 교사와 학생들은 온라인 학습에 빠르게 적응했다. 대부분 국가들은 디지털 학습 기회를 빠르게 제공하고, 교사들의 협업을 장려했다. 특히 중등 교육에서 국가 전반에 걸쳐 온라인 플랫폼이 광범위하게 사용됐다. OECD 회원국은 교육 시스템을 원격 또는 블렌디드 학습으로 전환했다. 이는 특히 교사에게 많은 책임을 부여했다. 교사들은 가상 학습 환경에 적합한 자료를 준비하는 한편 ‘학생들을 위한 디지털 기기 지원 및 자원 조정’, ‘학부모와의 상호 작용’ 등 새로운 임무를 맡게 됐다.  "
+
+    # 2. summarize (like, pre-computation)
+    lexrank.summarize(text)
+
+    summerization = []
+
+    # 3. probe (like, query-time)
+    summaries: List[str] = lexrank.probe()
+    for summary in summaries:
+        summerization.append(summary)
+
+    return summerization
+
+result = Summerization()
+
+print(result)
+
 # Load API key from file
 with open("openai_key.txt", "r") as f:
     api_key = f.read().strip()
 
 # Set up OpenAI API client
 openai.api_key = api_key
-
-# Define function to preprocess Korean text
-def preprocess_korean_text(text):
-    # Use Komoran tokenizer to split text into morphemes
-    komoran = Komoran()
-    morphemes = komoran.pos(text)
-
-    # Keep only nouns, adjectives, and verbs
-    filtered_morphemes = [morph for morph in morphemes if morph[1] in ["NNG", "NNP", "VA", "VV"]]
-
-    # Reconstruct filtered text
-    filtered_text = "".join([morph[0] for morph in filtered_morphemes])
-
-    return filtered_text
 
 # Define function to summarize English text
 def summarize_english_text(text):
@@ -42,23 +50,6 @@ def summarize_english_text(text):
 
     return summary
 
-# Define function to summarize Korean text
-def summarize_korean_text(text):
-    # Preprocess Korean text
-    text = preprocess_korean_text(text)
-
-    # Use LexRank algorithm to generate summary
-    lexrank = LexRank()
-    lexrank.summarize(text)
-    summary = lexrank.probe(3)
-
-    # Reconstruct summary into a string
-    summary_str = ""
-    for sentence in summary:
-        summary_str += sentence + " "
-
-    return summary_str
-
 # Define function to determine language and summarize text
 def summarize_text(text):
     # Determine language of text
@@ -69,7 +60,7 @@ def summarize_text(text):
         summary = summarize_english_text(text)
     # Summarize Korean text
     else:
-        summary = summarize_korean_text(text)
+        summary = summarize_english_text(text)
 
     return summary
 

@@ -1,5 +1,9 @@
 # Summerization code using ChatGPT API
 import openai
+from typing import List
+from konlpy.tag import Okt
+from typing import List
+from lexrankr import LexRank
 import os
 
 # Load OpenAI API key from file
