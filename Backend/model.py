@@ -33,18 +33,21 @@ class Model():
             self.error = 'please check url of image'
             return
 
-        if mode == "0":
-            img = self.object(img)
+        # if mode == "0":
+        #     img = self.object(img)
 
-        elif mode == "1":
+        if mode == "1":
             img = self.ocr(img)
-            # self.summarize()
+            self.summarize()
 
         print("== self.info ====")
         print(self.info)
+        #
+        # print("== self.summarize ====")
+        # print(self.summary)
 
         # store model image
-        cv2.imwrite(path_ulocal, img)
+        # cv2.imwrite(path_ulocal, img)
 
         return self.info, self.summary, self.error
 
@@ -69,10 +72,13 @@ class Model():
 
         self.info = dict(Counter(class_list))
 
+
         return img
 
     def ocr(self, img):
+
         tools = pyocr.get_available_tools()
+
         if len(tools) == 0:
             self.error = "OCR tool is not found"
             return
@@ -100,8 +106,23 @@ class Model():
 
         return img
 
-    def summarize(self, text):
-        
+    def summarize(self):
+
+        text = self.info
+        sentences = []
+        sentence = ""
+        for word in text:
+            if word == '\n':
+                if sentence:
+                    sentences.append(sentence.strip())
+                sentence = ""
+            else:
+                sentence += word + " "
+        if sentence:
+            sentences.append(sentence.strip())
+
+        result_string = ' '.join(sentences)
+        result_string = str(result_string)
         def Korean_Summerization(text_input) :
             # 1. init using Okt tokenizer
             mytokenizer: OktTokenizer = OktTokenizer()
@@ -132,20 +153,22 @@ class Model():
             return summary
 
         # Determine language of text
-        lang = "en" if re.match(r"^[A-Za-z0-9\s\.,\?]+$", text) else "ko"
+        lang = "en" if re.match(r"^[A-Za-z0-9\s\.,\?]+$", result_string) else "ko"
 
         # Summarize English text
         if lang == "en":
-            summary = summarize_english_text(text)
+            summary = summarize_english_text(result_string)
         # Summarize Korean text
         else:
-            summary = Korean_Summerization(text)
+            summary = Korean_Summerization(result_string)
             summary = ' '.join(summary)
+
+        self.summary = summary
 
         return summary
          
 
 
-# M = Model()
+M = Model()
 # M.modeling("0", "static/downloads/0_jyeon_IMG_3080.jpg", "static/uploads/1_jyeon_IMG_3080.jpg")
-# M.modeling("1", "static/downloads/1_jyeon_IMG0515.png", "static/uploads/1_jyeon_IMG0515.png")
+M.modeling("1", "static/downloads/test.png", "static/uploads/test.png")
