@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     tool = tools[0]
 
-    img_path = "/Users/jinnyfruit/PycharmProjects/Openeyes/Backend/static/downloads/test.png"
+    img_path = "/Backend/static/downloads/test.png"
     wk_builder = pyocr.builders.WordBoxBuilder()
     ocr_results = tool.image_to_string(
         Image.open(img_path),

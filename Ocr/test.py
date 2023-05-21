@@ -10,7 +10,7 @@ custom_config = r'--oem 3 --psm 6 -l kor'
 os.environ["TESSDATA_PREFIX"] = r"/Users/jinnyfruit/Downloads/tesseract-ocr-w64-setup-v5.2.0.20220712/肕/tessdata"
 
 # 이미지에서 텍스트 추출
-image_path = "/Users/jinnyfruit/PycharmProjects/Openeyes/Backend/static/downloads/test3.png"
+image_path = "/Backend/static/downloads/test3.png"
 result = pytesseract.image_to_string(image_path, lang="kor")
 
 

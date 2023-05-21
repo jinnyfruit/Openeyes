@@ -7,7 +7,7 @@ def ocr_image(image_path, languages):
     return text
 
 # 이미지 파일 경로
-image_path = "/Users/jinnyfruit/PycharmProjects/Openeyes/Backend/static/downloads/test.png"
+image_path = "/Backend/static/downloads/test.png"
 
 # OCR 할 언어 설정 (영어: eng, 한국어: kor)
 languages = "eng+kor"

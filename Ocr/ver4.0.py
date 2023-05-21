@@ -14,7 +14,7 @@ def ocr_image(image_path, lang):
     return text
 
 # 이미지 파일 경로
-image_path = "/Users/jinnyfruit/PycharmProjects/Openeyes/Backend/static/downloads/test.png"
+image_path = "/Backend/static/downloads/test.png"
 
 # 한국어 OCR 수행
 result_kor = ocr_image(image_path, lang="kor")

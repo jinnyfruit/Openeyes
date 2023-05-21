@@ -14,7 +14,7 @@ def ocr_image(image_path):
     return text
 
 # 이미지 파일 경로
-image_path = "/Users/jinnyfruit/PycharmProjects/Openeyes/Backend/static/downloads/test.png"
+image_path = "/Backend/static/downloads/test.png"
 
 # 이미지에서 텍스트 추출
 result = ocr_image(image_path)
