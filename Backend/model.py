@@ -169,6 +169,6 @@ class Model():
          
 
 
-M = Model()
-# M.modeling("0", "static/downloads/0_jyeon_IMG_3080.jpg", "static/uploads/1_jyeon_IMG_3080.jpg")
-M.modeling("1", "static/downloads/test.png", "static/uploads/test.png")
+# M = Model()
+# # M.modeling("0", "static/downloads/0_jyeon_IMG_3080.jpg", "static/uploads/1_jyeon_IMG_3080.jpg")
+# M.modeling("1", "static/downloads/test.png", "static/uploads/test.png")

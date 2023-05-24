@@ -11,7 +11,7 @@ M = Model()
 @app.route("/", methods={"POST", "GET"})
 def index():
     # path_dlocal, mode, uid, filename = DB.pull("Original/0/jyeon/IMG_3080.jpg")
-    path_dlocal, mode, uid, filename = DB.pull("Original/1/jyeon/img_eng.png")
+    path_dlocal, mode, uid, filename = DB.pull("Original/1/jyeon/img_eng.png","1_jyeon_common-2.jpeg")
     path_ulocal = path_dlocal.replace("downloads", "uploads")
     print(f"mode={mode}, path_dlocal={path_dlocal}, path_ulocal={path_ulocal}")
     info, summary, error = M.modeling(mode, path_dlocal, path_ulocal)
